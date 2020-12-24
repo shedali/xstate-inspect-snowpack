@@ -4,7 +4,7 @@
  **/
 
 import confetti from 'canvas-confetti';
-
+console.log('fuck');
 confetti.create(document.getElementById('canvas'), {
   resize: true,
   useWorker: true,

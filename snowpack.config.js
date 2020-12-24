@@ -1,28 +1,26 @@
-/** @type {import("snowpack").SnowpackUserConfig } */
 module.exports = {
-  mount: {
-    public: {url: '/', static: true},
-    src: {url: '/dist'},
+  "mount": {
+    "public": {
+      "url": "/",
+      "static": true
+    },
+    "src": {
+      "url": "/dist"
+    }
   },
-  plugins: [
-    /* ... */
+  "plugins": [
+    [
+      "snowpack-plugin-relative-css-urls"
+    ]
   ],
-  install: [
-    /* ... */
-  ],
-  installOptions: {
-    /* ... */
+  "install": [],
+  "installOptions": {},
+  "devOptions": {
+    "port": 8080
   },
-  devOptions: {
-    /* ... */
-  },
-  buildOptions: {
-    /* ... */
-  },
-  proxy: {
-    /* ... */
-  },
-  alias: {
-    /* ... */
-  },
-};
+  "buildOptions": {},
+  "proxy": {},
+  "alias": {
+    "src": "./src"
+  }
+}
