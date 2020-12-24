@@ -3,9 +3,43 @@
  * When you're ready to start on your site, clear the file. Happy hacking!
  **/
 
-import confetti from 'canvas-confetti';
-console.log('fuck');
-confetti.create(document.getElementById('canvas'), {
-  resize: true,
-  useWorker: true,
-})({ particleCount: 200, spread: 200 });
+import {Machine, interpret, assign} from "xstate";
+import { inspect } from '@xstate/inspect';
+inspect({iframe: false});
+
+const fetchMachine = Machine({
+    id: 'fetch',
+    initial: 'idle',
+    context: {
+      retries: 0
+    },
+    states: {
+      idle: {
+        on: {
+          FETCH: 'loading'
+        }
+      },
+      loading: {
+        on: {
+          RESOLVE: 'success',
+          REJECT: 'failure'
+        }
+      },
+      success: {
+        type: 'final'
+      },
+      failure: {
+        on: {
+          RETRY: {
+            target: 'loading',
+            actions: assign({
+              retries: (context, event) => context.retries + 1
+            })
+          }
+        }
+      }
+    }
+  });
+
+const service = interpret(fetchMachine, { devTools: true });
+
