@@ -43,3 +43,4 @@ const fetchMachine = Machine({
 
 const service = interpret(fetchMachine, { devTools: true });
 
+service.start();
